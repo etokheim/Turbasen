@@ -49,8 +49,9 @@ New `Doc`.
             return @emit 'error', err if err
 
             @data = data or status: 'Slettet'
-            redis.hmset "#{@type}:#{@id}", @data, (err) =>
-              return @emit 'ready'
+            redis.hmset "#{@type}:#{@id}", @data
+
+            return @emit 'ready'
       else
         process.nextTick => @emit 'ready'
 
