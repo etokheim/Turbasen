@@ -35,6 +35,7 @@
     "port_www": 8080,
     "sentry_dns": null,
     "mongo_uri": null,
+    "cache_expire_doc": 86400,
     "dotcloud_cache_redis_port": null,
     "dotcloud_cache_redis_host": null,
     "dotcloud_cache_redis_password": null
