@@ -36,6 +36,26 @@ the rquest.
 
         return next err if err
 
+        if process.env.FEATURE_TOGGLE_CORS
+          res.set 'Access-Control-Expose-Headers', [
+            'ETag'
+            'X-RateLimit-Limit'
+            'X-RateLimit-Remaining'
+            'X-RateLimit-Reset'
+            'Count-Return'
+            'Count-Total'
+          ].join ', '
+          res.set 'Access-Control-Allow-Origin', '*'
+          res.set 'Access-Control-Allow-Methods', 'HEAD, GET, OPTIONS'
+          res.set 'Access-Control-Allow-Headers', [
+            'Content-Type'
+            'If-Match'
+            'If-None-Match'
+            'If-Modified-Since'
+            'If-Unmodified-Since'
+          ].join ', '
+          res.set 'Access-Control-Max-Age', '1728000'
+
         next()
 
 ### Configuration

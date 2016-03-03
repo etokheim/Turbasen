@@ -26,6 +26,26 @@ describe 'OPTIONS', ->
       # Vary: Accept-Encoding
       .end done
 
+  it.only 'should return cors headers when enables', (done) ->
+    process.env.FEATURE_TOGGLE_CORS = 'true'
+
+    req.options url
+      .expect 204, {}
+      .expect 'Access-Control-Expose-Headers', [
+        'ETag'
+        'Location'
+        'Last-Modified'
+        'Count-Return'
+        'Count-Totoal'
+      ].join ', '
+      .expect 'Access-Control-Allow-Origin', ''
+      .expect 'Access-Control-Allow-Methods', ''
+      .expect 'Access-Control-Allow-Headers', ''
+      .expect 'Access-Control-Max-Age', ''
+      .end (err) ->
+        process.env.FEATURE_TOGGLE_CORS = undefined
+        done err
+
 describe 'HEAD', ->
   url = '/turer?api_key=dnt'
 
